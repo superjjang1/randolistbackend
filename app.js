@@ -6,6 +6,9 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var SpotifyWebApi = require('spotify-web-api-node');
+
+
 var app = express();
 const helmet = require('helmet');
 app.use(helmet());
