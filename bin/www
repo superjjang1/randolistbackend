@@ -5,14 +5,14 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('randolistbackend:server');
+var debug = require('debug')('airbnb-back-end:server');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '7010');
+var port = normalizePort(process.env.PORT || '8010');
 app.set('port', port);
 
 /**
