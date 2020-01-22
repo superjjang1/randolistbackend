@@ -7,12 +7,24 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var SpotifyWebApi = require('spotify-web-api-node');
-
 
 var app = express();
 const helmet = require('helmet');
 app.use(helmet());
+var SpotifyWebApi = require('spotify-web-api-node');
+var spotifyApi = new SpotifyWebApi({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET
+});
+// Retrieve an access token
+spotifyApi
+  .clientCredentialsGrant()
+  .then(data => {
+    spotifyApi.setAccessToken(data.body['access_token']);
+  })
+  .catch(error => {
+    console.log('Something went wrong when retrieving an access token', error);
+  });
 
 // Allow cross-origin.....
 app.use(function(req, res, next) {
