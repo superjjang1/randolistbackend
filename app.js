@@ -6,13 +6,13 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const SpotifyWebApi = require('spotify-web-api-node');
 
 
 var app = express();
 const helmet = require('helmet');
 app.use(helmet());
-var SpotifyWebApi = require('spotify-web-api-node');
-var spotifyApi = new SpotifyWebApi({
+const spotifyApi = new SpotifyWebApi({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET
 });
