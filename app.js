@@ -1,5 +1,6 @@
 require('dotenv').config();
 var express = require('express');
+var request = require('request');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -45,4 +46,5 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.listen(3010, ()=> console.log("hello?"));
+// console.log(spotifyApi);
 module.exports = app;
