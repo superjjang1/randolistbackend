@@ -14,7 +14,8 @@ const helmet = require('helmet');
 app.use(helmet());
 const spotifyApi = new SpotifyWebApi({
     clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET
+    clientSecret: process.env.CLIENT_SECRET,
+    redirectUri: 'localhost:8010'
 });
 // Retrieve an access token
 spotifyApi
