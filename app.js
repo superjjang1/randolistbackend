@@ -16,17 +16,23 @@ app.use(helmet());
 const spotifyApi = new SpotifyWebApi({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    redirectUri: 'localhost:8010'
+    redirectUri: 'http://localhost:3000/'
 });
+console.log('asking');
+console.log(spotifyApi._credentials.redirectUri);
 // Retrieve an access token
-spotifyApi
-  .clientCredentialsGrant()
-  .then(data => {
+spotifyApi.clientCredentialsGrant().then(
+  function(data) {
+    console.log('The access token expires in ' + data.body['expires_in']);
+    console.log('The access token is ' + data.body['access_token']);
+ 
+    // Save the access token so that it's used in future calls
     spotifyApi.setAccessToken(data.body['access_token']);
-  })
-  .catch(error => {
-    console.log('Something went wrong when retrieving an access token', error);
-  });
+  },
+  function(err) {
+    console.log('Something went wrong when retrieving an access token', err);
+  }
+);
 
 // Allow cross-origin.....
 app.use(function(req, res, next) {
@@ -45,6 +51,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-app.listen(3010, ()=> console.log("hello?"));
+app.listen(3010, ()=> console.log("listening on 3010"));
 // console.log(spotifyApi);
 module.exports = app;
