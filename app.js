@@ -7,32 +7,26 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const SpotifyWebApi = require('spotify-web-api-node');
-
+// const SpotifyWebApi = require('spotify-web-api-node');
+var loginRouter = require('./routes/login');
 
 var app = express();
 const helmet = require('helmet');
 app.use(helmet());
-const spotifyApi = new SpotifyWebApi({
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    redirectUri: 'http://localhost:3000/'
-});
-console.log('asking');
-console.log(spotifyApi._credentials.redirectUri);
+
 // Retrieve an access token
-spotifyApi.clientCredentialsGrant().then(
-  function(data) {
-    console.log('The access token expires in ' + data.body['expires_in']);
-    console.log('The access token is ' + data.body['access_token']);
+// spotifyApi.clientCredentialsGrant().then(
+//   function(data) {
+//     console.log('The access token expires in ' + data.body['expires_in']);
+//     console.log('The access token is ' + data.body['access_token']);
  
-    // Save the access token so that it's used in future calls
-    spotifyApi.setAccessToken(data.body['access_token']);
-  },
-  function(err) {
-    console.log('Something went wrong when retrieving an access token', err);
-  }
-);
+//     // Save the access token so that it's used in future calls
+//     spotifyApi.setAccessToken(data.body['access_token']);
+//   },
+//   function(err) {
+//     console.log('Something went wrong when retrieving an access token', err);
+//   }
+// );
 
 // Allow cross-origin.....
 app.use(function(req, res, next) {
@@ -49,6 +43,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/login', loginRouter);
 app.use('/users', usersRouter);
 
 app.listen(3010, ()=> console.log("listening on 3010"));
