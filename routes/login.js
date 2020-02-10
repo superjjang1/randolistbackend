@@ -6,12 +6,11 @@ const scopes = [
     "user-read-email",
     "playlist-read-private"
 ];
-console.log(process.env);
 console.log("hello loginjs");
 
 const spotifyApi = new spotifyWebApi({
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
+    clientID: process.env.SPOTIFY_CLIENT_ID,
+    clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     redirectUri: 'http://localhost:8010/'
 });
 console.log('asking');
@@ -22,7 +21,7 @@ router.get("/",(req,res)=>{
     res.redirect(authorizeUrl);
 });
 router.get("/callback", (req,res)=>{
-    const uri = spotifyApi.redirectUri;
+    const uri = process.env.FRONTEND_URI;
     console.log(uri);
     console.log('console logging uri');
     const code = req.query.code;
