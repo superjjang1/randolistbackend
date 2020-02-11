@@ -4,7 +4,10 @@ var request = require('request');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+const passport = require("passport");
+const session = require("express-session");
+const cors = require("cors");
+const dotenv = require("dotenv");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 // const SpotifyWebApi = require('spotify-web-api-node');
