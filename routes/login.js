@@ -11,8 +11,10 @@ console.log("hello loginjs");
 const spotifyApi = new spotifyWebApi({
     clientID: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-    redirectUri: 'http://localhost:8010/'
+    redirectUri: 'http://localhost:8010/callback'
 });
+console.log(process.env.SPOTIFY_CLIENT_ID)
+console.log(spotifyApi.clientID)
 console.log('asking');
 console.log(spotifyApi.redirectUri);
 const authorizeUrl = spotifyApi.createAuthorizeURL(scopes);
@@ -20,16 +22,16 @@ const authorizeUrl = spotifyApi.createAuthorizeURL(scopes);
 router.get("/",(req,res)=>{
     res.redirect(authorizeUrl);
 });
-router.get("/callback", (req,res)=>{
-    const uri = process.env.FRONTEND_URI;
-    console.log(uri);
-    console.log('console logging uri');
-    const code = req.query.code;
-    spotifyApi
-        .authorizationCodeGrant(code)
-        .then(data =>{
-            res.redirect(uri + "?access_token=" + data.body["access_token"]);
-        })
-        .catch(err => console.error(err));
-})
+router.get("/callback", async (req, res) => {
+    try {
+        const uri = process.env.FRONTEND_URI || "http://localhost:3000";
+        const code = req.query.code;
+        const tokens = await spotifyApi.authorizationCodeGrant(code);
+        const { access_token } = tokens.body;
+        console.log(`${uri}?access_token=${access_token}`);
+        res.redirect(`${uri}?access_token=${access_token}`);
+    } catch (err) {
+        console.error(err);
+    }
+});
 module.exports = router;
