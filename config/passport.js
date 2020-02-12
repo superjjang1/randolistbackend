@@ -1,5 +1,5 @@
 const SpotifyStrategy = require("passport-spotify").Strategy;
-const User = require("../models/User");
+const User = require("../routes/User");
 
 module.exports = passport => {
   passport.use(

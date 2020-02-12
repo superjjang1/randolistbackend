@@ -7,11 +7,14 @@ var logger = require('morgan');
 const passport = require("passport");
 const session = require("express-session");
 const cors = require("cors");
-const dotenv = require("dotenv");
+const dotenv = require("dotenv");        
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/User');
 // const SpotifyWebApi = require('spotify-web-api-node');
 var loginRouter = require('./routes/login');
+const PORT = 3010;
+dotenv.config();
+require("./config/passport")(passport);
 
 var app = express();
 const helmet = require('helmet');
@@ -49,6 +52,6 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/users', usersRouter);
 
-app.listen(3010, ()=> console.log("listening on 3010"));
+app.listen(PORT, ()=> console.log(`listening on ${PORT}`));
 // console.log(spotifyApi);
 module.exports = app;
