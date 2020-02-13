@@ -1,6 +1,5 @@
 require('dotenv').config();
 var express = require('express');
-var request = require('request');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -10,8 +9,9 @@ const cors = require("cors");
 const dotenv = require("dotenv");        
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/User');
+var authRouter = require('./routes/auth');
 // const SpotifyWebApi = require('spotify-web-api-node');
-var loginRouter = require('./routes/login');
+var spotifyRouter = require('./routes/spotify');
 const PORT = 3010;
 dotenv.config();
 require("./config/passport")(passport);
@@ -41,6 +41,15 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
   });
+// set up cors to allow us to accept requests from our client
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL, // allow to server to accept request from different origin
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true // allow session cookie from browser to pass through
+  })
+);
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -48,9 +57,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', indexRouter);
-app.use('/login', loginRouter);
+app.use('/spotify', spotifyRouter);
 app.use('/users', usersRouter);
+app.use('/auth', authRouter)
 
 app.listen(PORT, ()=> console.log(`listening on ${PORT}`));
 // console.log(spotifyApi);
