@@ -33,7 +33,7 @@ router.get('/callback', async (req,res) => {
     spotifyApi.setAccessToken(access_token);
     spotifyApi.setRefreshToken(refresh_token);
 
-    res.redirect('http://localhost:8010');
+    res.redirect('http://localhost:3000/');
   } catch(err) {
     res.redirect('/#/error/invalid token');
   }

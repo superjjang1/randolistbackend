@@ -8,7 +8,7 @@ console.log("hello loginjs");
 const spotifyApi = new spotifyWebApi({
     clientID: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-    redirectUri: 'http://localhost:8010/callback'
+    redirectUri: process.env.FRONTEND_URI
 });
 console.log(spotifyApi.clientID)
 console.log('asking');
