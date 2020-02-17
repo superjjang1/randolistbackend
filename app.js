@@ -8,7 +8,7 @@ const session = require("express-session");
 const cors = require("cors");
 const dotenv = require("dotenv");        
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/User');
+// var usersRouter = require('./routes/User');
 var authRouter = require('./routes/auth');
 // const SpotifyWebApi = require('spotify-web-api-node');
 var spotifyRouter = require('./routes/spotify');
@@ -63,7 +63,7 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/spotify', spotifyRouter);
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
 app.use('/auth', authRouter)
 
 app.listen(PORT, ()=> console.log(`listening on ${PORT}`));
