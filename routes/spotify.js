@@ -10,9 +10,6 @@ const spotifyApi = new spotifyWebApi({
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     redirectUri: process.env.FRONTEND_URI
 });
-console.log(spotifyApi.clientID)
-console.log('asking');
-console.log(spotifyApi.redirectUri);
 
 const setAccessToken = (req, res, next) => {
     if (req.user) {

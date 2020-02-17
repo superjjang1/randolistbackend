@@ -27,6 +27,7 @@ router.get('/login', (req,res) => {
 router.get('/callback', async (req,res) => {
   const { code } = req.query;
   console.log(code)
+  console.log('running code');
   try {
     var data = await spotifyApi.authorizationCodeGrant(code)
     const { access_token, refresh_token } = data.body;
