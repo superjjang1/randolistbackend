@@ -13,23 +13,7 @@ const spotifyApi = new spotifyWebApi({
 console.log(spotifyApi.clientID)
 console.log('asking');
 console.log(spotifyApi.redirectUri);
-// const authorizeUrl = spotifyApi.createAuthorizeURL(scopes);
 
-// router.get("/",(req,res)=>{
-//     res.redirect(authorizeUrl);
-// });
-// router.get("/callback", async (req, res) => {
-//     try {
-//         const uri = process.env.FRONTEND_URI || "http://localhost:3000";
-//         const code = req.query.code;
-//         const tokens = await spotifyApi.authorizationCodeGrant(code);
-//         const { access_token } = tokens.body;
-//         console.log(`${uri}?access_token=${access_token}`);
-//         res.redirect(`${uri}?access_token=${access_token}`);
-//     } catch (err) {
-//         console.error(err);
-//     }
-// });
 const setAccessToken = (req, res, next) => {
     if (req.user) {
       const { accessToken, accessTokenExpiry, refreshToken } = req.user;
