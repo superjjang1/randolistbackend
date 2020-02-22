@@ -1,26 +1,32 @@
-var express = require('express');
-var router = express.Router();
-const db = require('../db');
-const bcrypt = require('bcrypt');
-const randToken = require('rand-token');
+const mongoose = require("mongoose");
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-router.post('/login', (req,res,next)=>{
-  const {
-    name,
-    spotifyid,
-    email
-  }= req.body;
-  if ((!name)||(!spotifyid)||(!email)){
-    res.json({
-      msg: 'not working'
-    });
-    return;
+const UserSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String
+  },
+  spotifyId: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  accessToken: {
+    type: String,
+    required: true
+  },
+  accessTokenExpiry: {
+    type: Date,
+    required: true
+  },
+  refreshToken: {
+    type: String,
+    required: true
   }
+});
 
-})
+const User = mongoose.model("User", UserSchema);
 
-module.exports = router;
+module.exports = User;
