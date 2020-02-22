@@ -20,8 +20,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/login', (req,res) => {
   var html = spotifyApi.createAuthorizeURL(scopes)
-  console.log(html)
-  res.send(html+"&show_dialog=true")  
+  res.redirect(html+"&show_dialog=true")  
 })
 
 router.get('/callback', async (req,res) => {
