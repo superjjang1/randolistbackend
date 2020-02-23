@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require('mongoose');
 const passport = require("passport");
 const session = require("express-session");
 const cors = require("cors");
@@ -15,24 +16,19 @@ var spotifyRouter = require('./routes/spotify');
 const PORT = 3010;
 dotenv.config();
 require("./config/passport")(passport);
-
 var app = express();
 const helmet = require('helmet');
+
+
 app.use(helmet());
 
-// Retrieve an access token
-// spotifyApi.clientCredentialsGrant().then(
-//   function(data) {
-//     console.log('The access token expires in ' + data.body['expires_in']);
-//     console.log('The access token is ' + data.body['access_token']);
- 
-//     // Save the access token so that it's used in future calls
-//     spotifyApi.setAccessToken(data.body['access_token']);
-//   },
-//   function(err) {
-//     console.log('Something went wrong when retrieving an access token', err);
-//   }
-// );
+mongoose
+  .connect(process.env.MONGODB_URI,{ 
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(()=>console.log(`mongoConnect`))
+  .catch(err=>console.log(err));
 
 // Allow cross-origin.....
 app.use(function(req, res, next) {
