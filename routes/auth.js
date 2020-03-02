@@ -4,7 +4,8 @@ const router = express.Router();
 const scope = [
     "user-read-private",
     "user-read-email",
-    "playlist-read-private"
+    "playlist-read-private",
+    "user-top-read"
 ];
 
 router.get("/spotify", passport.authenticate("spotify",{scope}));

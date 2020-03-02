@@ -46,6 +46,13 @@ app.use(
   })
 );
 
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false
+  })
+);
 
 app.use(logger('dev'));
 app.use(express.json());

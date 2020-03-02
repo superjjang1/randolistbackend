@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/login', (req,res) => {
+router.get('/auth/spotify', (req,res) => {
   var html = spotifyApi.createAuthorizeURL(scopes)
   res.redirect(html+"&show_dialog=true")  
 })
@@ -60,5 +60,10 @@ router.get('/playlists', async (req,res) => {
 
 });
 
+
+router.get("/logout", function(req, res) {
+  req.logout();
+  res.redirect("/login");
+});
 
 module.exports = router;
