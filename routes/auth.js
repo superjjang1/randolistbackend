@@ -23,7 +23,7 @@ router.get("/login/success", (req, res) => {
       res.sendStatus(403);
     }
   });
-  
+
 router.get("/login/failed", (req, res) => {
   res.status(401).json({
     success: false,

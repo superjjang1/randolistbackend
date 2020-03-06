@@ -69,6 +69,7 @@ app.use('/spotify', spotifyRouter);
 // app.use('/users', usersRouter);
 app.use('/auth', authRouter)
 
+
 app.listen(PORT, ()=> console.log(`listening on ${PORT}`));
 // console.log(spotifyApi);
 module.exports = app;
