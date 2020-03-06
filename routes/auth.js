@@ -11,6 +11,8 @@ const scope = [
 router.get("/spotify", passport.authenticate("spotify",{scope}));
 
 router.get("/login/success", (req, res) => {
+  console.log("we're trying to login?")
+  console.log(req.user)
     if (req.user) {
       res.json({
         success: true,
@@ -22,12 +24,12 @@ router.get("/login/success", (req, res) => {
     }
   });
   
-  router.get("/login/failed", (req, res) => {
-    res.status(401).json({
-      success: false,
-      message: "user failed to authenticate."
-    });
+router.get("/login/failed", (req, res) => {
+  res.status(401).json({
+    success: false,
+    message: "user failed to authenticate."
   });
+});
   
   router.get(
     "/spotify/redirect",
