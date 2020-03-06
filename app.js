@@ -27,7 +27,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(()=>console.log(`mongoConnect`))
+  .then(()=>console.log(`mongoConnected`))
   .catch(err=>console.log(err));
 
 // Allow cross-origin.....
